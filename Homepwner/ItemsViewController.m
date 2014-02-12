@@ -10,4 +10,19 @@
 
 @implementation ItemsViewController
 
+-(id) init
+{
+    //Call the superclass's designated initializer
+    self = [super initWithStyle:UITableViewStyleGrouped];
+    if (self) {
+        
+    }
+    return self;
+}
+
+-(id) initWithStyle:(UITableViewStyle)style
+{
+    return [self init];
+}
+
 @end
