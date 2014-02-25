@@ -9,6 +9,8 @@
 #import "BNRItem.h"
 
 @implementation BNRItem
+@synthesize itemName;
+@synthesize containedItem, container, serialNumber, valueInDollars, dateCreated;
 
 +(id)randomItem
 {
@@ -63,17 +65,6 @@
     //return the address of the newly initialized object
     return self;
 }
-
-//Silver challenge. Creating an initializer that is not the designated initial of BNRItem. 
--(id)initWithItemName:(NSString *)name
-         serialNumber:(NSString *)sNumber;
-{
-    self = [self initWithItemName:name
-                   valueInDollars:0
-                     serialNumber:sNumber];
-    return self;
-}
-
 -(id)init
 {
     return [self initWithItemName:@"Item"
@@ -81,45 +72,24 @@
                      serialNumber:@""];
 }
 
--(void)setItemName:(NSString *)str
+//Overriding the synthesizing the property
+-(void)setContainedItem:(BNRItem *)i;
 {
-    itemName = str;
+    containedItem = i;
+    [i setContainer:self];
 }
 
--(NSString *)itemName;
-{
-    return itemName;
-}
-
--(void) setSerialNumber:(NSString *)str
-{
-    serialNumber = str;
-}
-
--(NSString *)serialNumber
-{
-    return serialNumber;
-}
-
--(void)setValueInDollars:(int)i
-{
-    valueInDollars = i;
-}
-
--(int)valueInDollars
-{
-    return valueInDollars;
-}
-
--(NSDate *)dateCreated
-{
-    return dateCreated;
-}
-
+//Overriding the description method for BNRItem
 -(NSString *) description
 {
     NSString *descriptionString = [[NSString alloc] initWithFormat:@"%@ (%@): Worth $%d, recorded on %@", itemName, serialNumber, valueInDollars, dateCreated];
     
     return descriptionString;
+}
+
+//Overriding the dealloc method for BNRItem
+-(void)dealloc
+{
+    NSLog(@"Destroyed:%@", self);
 }
 @end
